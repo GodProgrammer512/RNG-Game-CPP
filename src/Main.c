@@ -1,22 +1,25 @@
 // Importations:
+#include <cutils.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <cutils.h>
 
 
 // Main code:
 int main(void)
 {
 	// Start random seed:
-	srand((unsigned int) time(NULL));
+	srand((signed int) time(NULL));
 
 	// Variables:
-	#define MIN 0
-	#define MAX 10
-	unsigned char loop1 = 1u;
-	signed int number, old_random_number, random_number = rand() % 11;
-	long double option1, attempts = 0.0L;
+	#define MIN 0                           // Minimum value variable.
+	#define MAX 10                          // Maximum value variable.
+	unsigned char loop1 = 1u;               // First loop variable.
+	signed int number;                      // Number variable.
+	signed int old_random_number;           // Old random number variable.
+	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
+	long double option1;                    // First option variable.
+	long double attempts = 0.0L;            // Number of attempts variable.
 
 	while(loop1)
 	{
