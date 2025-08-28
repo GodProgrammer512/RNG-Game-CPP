@@ -15,9 +15,9 @@ int main(void)
 	srand((signed int) time(NULL));
 
 	// Variables:
+	#define RNG_GAME_VERSION "3.0.2"        // RNG Game version variable.
 	#define MIN 0                           // Minimum value variable.
 	#define MAX 10                          // Maximum value variable.
-	#define RNG_GAME_VERSION "3.0.2"        // RNG Game version variable.
 	signed char loop1 = 1;                  // First loop variable.
 	signed int number;                      // Number variable.
 	signed int old_random_number;           // Old random number variable.
