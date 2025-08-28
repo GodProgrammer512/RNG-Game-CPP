@@ -15,35 +15,33 @@ int main(void)
 	srand((signed int) time(NULL));
 
 	// Variables:
-	unsigned char loop1 = 1u;               // First loop variable.
-	unsigned char loop2 = 0u;               // Second loop variable.
+	#define MIN 0                           // Minimum value variable.
+	#define MAX 10                          // Maximum value variable.
+	#define RNG_GAME_VERSION "3.0.2"        // RNG Game version variable.
+	signed char loop1 = 1;                  // First loop variable.
 	signed int number;                      // Number variable.
 	signed int old_random_number;           // Old random number variable.
 	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
 	long double option1;                    // First option variable.
-	long double option2;                    // Second option variable.
 	long double attempts = 0.0L;            // Number of attempts variable.
-	#define MIN 0                           // Minimum value variable.
-	#define MAX 10                          // Maximum value variable.
-	#define RNG_GAME_VERSION 3.01L          // RNG Game version variable.
 
-	while(loop1)
+	while(loop1 == 1)
 	{
 		clear_terminal();
-		puts("=======================================");
-		printf("============ RNG Game %.2Lf ============\n", RNG_GAME_VERSION);
-		puts("=======================================");
+		puts("========================================");
+		printf("============ RNG Game %s ============\n", RNG_GAME_VERSION);
+		puts("========================================");
 		printf("         %s[ 0 ] Options...%s\n", RED_COLOR, BASE_TERMINAL);
 		puts("         [ 1 ] Play game!");
-		fputs("\t     Your answer: ", stdout);
+		fputs("\t   Your answer: ", stdout);
 		scanf("%Lf", &option1);
 		clear_terminal();
 
 		if(option1 == 0.0L)
 		{
-			--loop1; ++loop2;
+			++loop1;
 
-			while(loop2)
+			while(loop1 == 2)
 			{
 				puts("==================================");
 				puts("============ Options =============");
@@ -54,38 +52,38 @@ int main(void)
 				puts("  [ 3 ] View statistics");
 				puts("  [ 4 ] Change the random number");
 				fputs("\t Your answer: ", stdout);
-				scanf("%Lf", &option2);
+				scanf("%Lf", &option1);
 
-				if(option2 == 0.0L)
+				if(option1 == 0.0L)
 				{
-					--loop2, ++loop1;
+					--loop1;
 				}
 
-				else if(option2 == 1.0L)
+				else if(option1 == 1.0L)
 				{
-					--loop2, clear_terminal();
+					loop1 = 0, clear_terminal();
 				}
 
-				else if(option2 == 2.0L)
+				else if(option1 == 2.0L)
 				{
 					clear_terminal();
 					rrmf();
 				}
 
-				else if(option2 == 3.0L)
+				else if(option1 == 3.0L)
 				{
 					clear_terminal();
-					/** Falta colocar as estatísticas aqui... */
+					// Falta colocar as estatisticas aqui (faça tudo em .csv, no caso texto comum, baseado em dados com vírgula).
 				}
 
-				else if(option2 == 3.14L || option2 == 3.1415L)
+				else if(option1 == 3.14L || option1 == 3.1415L)
 				{
 					clear_terminal();
 					easter_egg_function();
 					clear_terminal();
 				}
 
-				else if(option2 == 4.0L)
+				else if(option1 == 4.0L)
 				{
 					clear_terminal();
 					old_random_number = random_number;
