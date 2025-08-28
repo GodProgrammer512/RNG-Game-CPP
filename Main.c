@@ -25,6 +25,10 @@ int main(void)
 	long double option1;                    // First option variable.
 	long double attempts = 0.0L;            // Number of attempts variable.
 
+	// Enable Vitrual Terminal and use UTF-8:
+	enable_vt_and_utf8();
+
+	// Main loop:
 	while(loop1 == 1)
 	{
 		clear_terminal();
