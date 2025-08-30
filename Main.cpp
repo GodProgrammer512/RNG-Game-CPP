@@ -3,8 +3,8 @@
 
 // Importations:
 #include <cutils.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+// #include <stdlib.h>
 #include <time.h>
 #include <string>
 
@@ -39,7 +39,7 @@ int main(void)
 		printf("         %s[ 0 ] Options...%s\n", RED_COLOR, BASE_TERMINAL);
 		puts("         [ 1 ] Play game!");
 		fputs("\t   Your answer: ", stdout);
-		scanf("%Lf", &option1);
+		std::cin >> std::ws >> option1;
 		clear_terminal();
 
 		if(option1 == "0")
@@ -57,7 +57,7 @@ int main(void)
 				puts("  [ 3 ] View statistics");
 				puts("  [ 4 ] Change the random number");
 				fputs("\t Your answer: ", stdout);
-				scanf("%Lf", &option1);
+				std::cin >> std::ws >> option1;
 
 				if(option1 == "0")
 				{
