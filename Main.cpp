@@ -1,11 +1,12 @@
-#ifndef _RNG_GAME_C_
-#define _RNG_GAME_C_
+#ifndef _RNG_GAME_CPP_
+#define _RNG_GAME_CPP_
 
 // Importations:
 #include <cutils.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string>
 
 
 // Main code:
@@ -22,7 +23,7 @@ int main(void)
 	signed int number;                      // Number variable.
 	signed int old_random_number;           // Old random number variable.
 	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
-	long double option1;                    // First option variable.
+	std::string option1;                    // First option variable.
 	long double attempts = 0.0L;            // Number of attempts variable.
 
 	// Enable Vitrual Terminal and use UTF-8:
@@ -41,7 +42,7 @@ int main(void)
 		scanf("%Lf", &option1);
 		clear_terminal();
 
-		if(option1 == 0.0L)
+		if(option1 == "0")
 		{
 			++loop1;
 
@@ -58,36 +59,36 @@ int main(void)
 				fputs("\t Your answer: ", stdout);
 				scanf("%Lf", &option1);
 
-				if(option1 == 0.0L)
+				if(option1 == "0")
 				{
 					--loop1;
 				}
 
-				else if(option1 == 1.0L)
+				else if(option1 == "1")
 				{
 					loop1 = 0, clear_terminal();
 				}
 
-				else if(option1 == 2.0L)
+				else if(option1 == "2")
 				{
 					clear_terminal();
 					rrmf();
 				}
 
-				else if(option1 == 3.0L)
+				else if(option1 == "3")
 				{
 					clear_terminal();
 					// Falta colocar as estatisticas aqui (faça tudo em .csv, no caso texto comum, baseado em dados com vírgula).
 				}
 
-				else if(option1 == 3.14L || option1 == 3.1415L)
+				else if(option1 == "3.14" || option1 == "3.1415" || option1 == "3.14159" || option1 == "3,14" || option1 == "3,1415" || option1 == "3,14159")
 				{
 					clear_terminal();
 					easter_egg_function();
 					clear_terminal();
 				}
 
-				else if(option1 == 4.0L)
+				else if(option1 == "4")
 				{
 					clear_terminal();
 					old_random_number = random_number;
@@ -99,7 +100,7 @@ int main(void)
 			}
 		}
 
-		else if(option1 == 1.0L)
+		else if(option1 == "1")
 		{
 			printf("Type the number that you think it is (%sMin: 0%s, %sMax: 10%s, if you type another number below 0 it will be rounded to 0, and the same will hapend to the number above 10...): ", BOLD, BASE_TERMINAL, BOLD, BASE_TERMINAL);
 			scanf("%d", &number);
