@@ -4,8 +4,7 @@
 // Importations:
 #include <cutils.h>
 #include <iostream>
-// #include <stdlib.h>
-#include <time.h>
+// #include <time.h>
 #include <string>
 
 
@@ -95,6 +94,11 @@ int main(void)
 					printf("Now your attempts have been reseted and the random number has changed to a new value! (Old random number: %d)\n", old_random_number);
 					random_number = rand() % 11, attempts = 0.0L;
 					petc();
+					clear_terminal();
+				}
+
+				else
+				{
 					clear_terminal();
 				}
 			}
