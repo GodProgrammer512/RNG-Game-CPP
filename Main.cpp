@@ -6,6 +6,7 @@
 #include <cutils.h>
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
 
 // Global Variables:
@@ -18,7 +19,12 @@ long double loses;         // Number of loses global variable.
 // Save statistics function:
 void save_statistics()
 {
-	std::ofstream file("statistics.csv");
+	if(!std::filesystem::exists("data"))
+	{
+		std::filesystem::create_directory("data");
+	}
+
+	std::ofstream file("saves/statistics.csv");
 	if(file.is_open())
 	{
 		file << attempts << "," << wins_percent << "," << loses_percent << "," << wins << "," << loses << "\n";
