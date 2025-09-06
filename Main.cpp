@@ -9,11 +9,11 @@
 
 
 // Global Variables:
-long double attempts = 0.0L; // Number of attempts global variable.
-long double wins_percent;    // Percentage of wins global variable.
-long double loses_percent;   // Percentage of loses global variable.
-long double wins;            // Number of wins global variable.
-long double loses;           // Number of loses global variable.
+long double attempts;      // Number of attempts global variable.
+long double wins_percent;  // Percentage of wins global variable.
+long double loses_percent; // Percentage of loses global variable.
+long double wins;          // Number of wins global variable.
+long double loses;         // Number of loses global variable.
 
 // Save statistics function:
 void save_statistics()
