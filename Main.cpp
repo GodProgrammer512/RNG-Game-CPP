@@ -8,13 +8,20 @@
 #include <fstream>
 
 
+// Global Variables:
+long double attempts = 0.0L; // Number of attempts global variable.
+long double wins_percent;    // Percentage of wins global variable.
+long double loses_percent;   // Percentage of loses global variable.
+long double wins;            // Number of wins global variable.
+long double loses;           // Number of loses global variable.
+
 // Save statistics function:
-void save_statistics(long double attempts, int)
+void save_statistics()
 {
 	std::ofstream file("statistics.csv");
 	if(file.is_open())
 	{
-		file << attempts << "," << "\n";
+		file << attempts << "," << wins_percent << "," << loses_percent << "," << wins << "," << loses << "\n";
 		file.close();
 	}
 }
@@ -36,9 +43,6 @@ int main()
 	signed int number;                      // Number variable.
 	signed int old_random_number;           // Old random number variable.
 	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
-	long double attempts = 0.0L;            // Number of attempts variable.
-	long double loses = 0.0L;               // Number of loses variable.
-	long double wins = 0.0L;                // Number of wins variable.
 	std::string option1;                    // First option variable.
 
 	// Initializations:
