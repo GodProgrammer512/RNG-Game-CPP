@@ -1,9 +1,11 @@
+// Run once time:
 #ifndef _RNG_GAME_CPP_
 #define _RNG_GAME_CPP_
 
 // Importations:
 #include <cutils.h>
 #include <iostream>
+#include <fstream>
 
 
 // Main code:
@@ -180,4 +182,5 @@ int main(void)
 	return 0;
 }
 
+// End code:
 #endif
