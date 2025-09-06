@@ -8,6 +8,9 @@
 #include <fstream>
 
 
+// Game Functions:
+void save_statistics(long double attempts, int){}
+
 // Main code:
 int main(void)
 {
@@ -23,6 +26,8 @@ int main(void)
 	signed int old_random_number;           // Old random number variable.
 	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
 	long double attempts = 0.0L;            // Number of attempts variable.
+	long double loses = 0.0L;               // Number of loses variable.
+	long double wins = 0.0L;                // Number of wins variable.
 	std::string option1;                    // First option variable.
 
 	// Enable Vitrual Terminal and use UTF-8:
