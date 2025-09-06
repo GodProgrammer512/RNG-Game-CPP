@@ -58,7 +58,7 @@ void load_data()
 	else
 	{
 		attempts = 0.0L, wins_percent = 0.0L, loses_percent = 0.0L, wins = 0.0L, loses = 0.0L;
-		save_statistics();
+		save_data();
 	}
 }
 
