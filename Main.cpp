@@ -24,7 +24,7 @@ void save_statistics()
 		std::filesystem::create_directory("data");
 	}
 
-	std::ofstream file("saves/statistics.csv");
+	std::ofstream file("data/statistics.csv");
 	if(file.is_open())
 	{
 		file << attempts << "," << wins_percent << "," << loses_percent << "," << wins << "," << loses << "\n";
@@ -33,7 +33,34 @@ void save_statistics()
 }
 
 // Load data function:
-void load_data(){}
+void load_data()
+{
+	if(std::filesystem::exists("data/statistics.csv"))
+	{
+		std::ifstream file("data/statistics.csv");
+		std::string line;
+
+		if(file.is_open() && std::getline(file, line))
+		{
+			std::stringstream ss(line);
+			std::string value;
+
+			if(std::getline(ss, value, ',')) {attempts = std::stold(value);}
+			if(std::getline(ss, value, ',')) {wins_percent = std::stold(value);}
+			if(std::getline(ss, value, ',')) {loses_percent = std::stold(value);}
+			if(std::getline(ss, value, ',')) {wins = std::stold(value);}
+			if(std::getline(ss, value, ',')) {loses = std::stold(value);}
+
+			file.close();
+		}
+	}
+
+	else
+	{
+		attempts = 0.0L, wins_percent = 0.0L, loses_percent = 0.0L, wins = 0.0L, loses = 0.0L;
+		save_statistics();
+	}
+}
 
 // Main code:
 int main()
