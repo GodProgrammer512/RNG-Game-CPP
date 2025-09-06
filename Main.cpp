@@ -8,11 +8,22 @@
 #include <fstream>
 
 
-// Game Functions:
-void save_statistics(long double attempts, int){}
+// Save statistics function:
+void save_statistics(long double attempts, int)
+{
+	std::ofstream file("statistics.csv");
+	if(file.is_open())
+	{
+		file << attempts << "," << "\n";
+		file.close();
+	}
+}
+
+// Load data function:
+void load_data(){}
 
 // Main code:
-int main(void)
+int main()
 {
 	// Start random seed:
 	srand((signed int) time(NULL));
@@ -30,8 +41,9 @@ int main(void)
 	long double wins = 0.0L;                // Number of wins variable.
 	std::string option1;                    // First option variable.
 
-	// Enable Vitrual Terminal and use UTF-8:
+	// Initializations:
 	enable_vt_and_utf8();
+	load_data();
 
 	// Main loop:
 	while(loop1 == 1)
