@@ -17,7 +17,7 @@ long double wins;          // Number of wins global variable.
 long double loses;         // Number of loses global variable.
 
 // Save statistics function:
-void save_statistics()
+void save_data()
 {
 	if(!std::filesystem::exists("data"))
 	{
