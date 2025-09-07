@@ -105,10 +105,12 @@ int main()
 				puts("============ Options =============");
 				puts("==================================");
 				puts("  [ 0 ] Return");
-				printf("  %s[ 1 ] Exit...%s\n", RED_COLOR, BASE_TERMINAL);
-				puts("  [ 2 ] Read \"READ-ME\"");
-				puts("  [ 3 ] View statistics");
-				puts("  [ 4 ] Change the random number");
+				printf("  %s[ 1 ] Quit...%s\n", RED_COLOR, BASE_TERMINAL);
+				puts("  [ 2 ] Save data and quit");
+				puts("  [ 3 ] Save data (it is saved automatically on the game play)");
+				puts("  [ 4 ] Read \"READ-ME\"");
+				puts("  [ 5 ] View statistics");
+				puts("  [ 6 ] Change the random number");
 				fputs("\t Your answer: ", stdout);
 				std::cin >> std::ws >> option1;
 
@@ -124,14 +126,22 @@ int main()
 
 				else if(option1 == "2")
 				{
-					clear_terminal();
-					rrmf();
+					loop1 = 0, save_data(), clear_terminal();
 				}
 
 				else if(option1 == "3")
 				{
 					clear_terminal();
-					// Falta colocar as estatisticas aqui (faça tudo em .csv, no caso texto comum, baseado em dados com vírgula).
+					save_data();
+					puts("Data saved successfully!");
+					petc();
+					clear_terminal();
+				}
+
+				else if(option1 == "4")
+				{
+					clear_terminal();
+					rrmf();
 				}
 
 				else if(option1 == "3.14" || option1 == "3.1415" || option1 == "3.14159" || option1 == "3,14" || option1 == "3,1415" || option1 == "3,14159")
@@ -141,7 +151,19 @@ int main()
 					clear_terminal();
 				}
 
-				else if(option1 == "4")
+				else if(option1 == "5")
+				{
+					clear_terminal();
+					printf("Number of attempts: %0.Lf\n", attempts);
+					printf("Percentage of wins: %0.Lf%%\n", wins_percent);
+					printf("Percentage of loses: %0.Lf%%\n", loses_percent);
+					printf("Number of wins: %0.Lf\n", wins);
+					printf("Number of loses: %0.Lf\n", loses);
+					petc();
+					clear_terminal();
+				}
+
+				else if(option1 == "6")
 				{
 					clear_terminal();
 					old_random_number = random_number;
