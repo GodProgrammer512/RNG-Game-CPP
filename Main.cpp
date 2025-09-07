@@ -69,7 +69,7 @@ int main()
 	srand((signed int) time(NULL));
 
 	// Variables:
-	#define RNG_GAME_VERSION "3.0.2"        // RNG Game version variable.
+	#define RNG_GAME_VERSION "4.0.1"        // RNG Game version variable.
 	#define MIN 0                           // Minimum value variable.
 	#define MAX 10                          // Maximum value variable.
 	signed char loop1 = 1;                  // First loop variable.
@@ -78,7 +78,7 @@ int main()
 	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
 	std::string option1;                    // First option variable.
 
-	// Initializations:
+	// Initializations before the game (load):
 	enable_vt_and_utf8();
 	load_data();
 
@@ -172,15 +172,17 @@ int main()
 				if(number > random_number)
 				{
 					printf("%s%sYou lose!%s The random number is below 10!\n", BOLD, RED_COLOR, BASE_TERMINAL);
-					++attempts;
+					++attempts, ++loses;
+					save_data();
 				}
 
 				else if(number == random_number)
 				{
 					printf("%s%sYou win!%s The random number is = 10!\n", BOLD, GREEN_COLOR, BASE_TERMINAL);
 					puts("Now the random number has changed to a new value!");
-					printf("Number of attempts: %0.Lf\n", attempts + 1.0L);
-					attempts = 0.0L;
+					++attempts, ++wins;
+					save_data();
+					printf("Number of attempts: %0.Lf\n", attempts);
 					random_number = rand() % 11;
 				}
 			}
@@ -192,15 +194,17 @@ int main()
 				if(number < random_number)
 				{
 					printf("%s%sYou lose!%s The random number is above 0!\n", BOLD, RED_COLOR, BASE_TERMINAL);
-					++attempts;
+					++attempts, ++loses;
+					save_data();
 				}
 
 				else if(number == random_number)
 				{
 					printf("%s%sYou win!%s The random number is = 0\n", BOLD, GREEN_COLOR, BASE_TERMINAL);
 					puts("Now the random number has changed to a new value!");
-					printf("Number of attempts: %0.Lf\n", attempts + 1.0L);
-					attempts = 0.0L;
+					++attempts, ++wins;
+					save_data();
+					printf("Number of attempts: %0.Lf\n", attempts);
 					random_number = rand() % 11;
 				}
 			}
@@ -210,22 +214,25 @@ int main()
 				if(number < random_number)
 				{
 					printf("%s%sYou lose!%s The random number is above %d!\n", BOLD, RED_COLOR, BASE_TERMINAL, number);
-					++attempts;
+					++attempts, ++loses;
+					save_data();
 				}
 
 				else if(number == random_number)
 				{
 					printf("%s%sYou win!%s The random number is = %d!\n", BOLD, GREEN_COLOR, BASE_TERMINAL, number);
 					puts("Now the random number has changed to a new value!");
-					printf("Number of attempts: %0.Lf\n", attempts + 1.0L);
-					attempts = 0.0L;
+					++attempts, ++wins;
+					save_data();
+					printf("Number of attempts: %0.Lf\n", attempts);
 					random_number = rand() % 11;
 				}
 
 				else if(number > random_number)
 				{
 					printf("%s%sYou lose!%s The random number is below %d!\n", BOLD, RED_COLOR, BASE_TERMINAL, number);
-					++attempts;
+					++attempts, ++loses;
+					save_data();
 				}
 			}
 
