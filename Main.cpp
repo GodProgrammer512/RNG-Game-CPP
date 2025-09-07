@@ -89,7 +89,7 @@ int main()
 		puts("========================================");
 		printf("============ RNG Game %s ============\n", RNG_GAME_VERSION);
 		puts("========================================");
-		printf("         %s[ 0 ] Options...%s\n", RED_COLOR, BASE_TERMINAL);
+		puts("         [ 0 ] Options...");
 		puts("         [ 1 ] Play game!");
 		fputs("\t   Your answer: ", stdout);
 		std::cin >> std::ws >> option1;
@@ -106,11 +106,11 @@ int main()
 				puts("==================================");
 				puts("  [ 0 ] Return");
 				printf("  %s[ 1 ] Quit...%s\n", RED_COLOR, BASE_TERMINAL);
-				puts("  [ 2 ] Save data and quit");
-				puts("  [ 3 ] Save data (it is saved automatically on the game play)");
-				puts("  [ 4 ] Read \"READ-ME\"");
-				puts("  [ 5 ] View statistics");
-				puts("  [ 6 ] Change the random number");
+				printf("  %s[ 2 ] Save data%s and %squit%s\n", GREEN_COLOR, BASE_TERMINAL, RED_COLOR, BASE_TERMINAL);
+				printf("  %s[ 3 ] Save data%s (%sit is saved automatically on the game play%s)\n", GREEN_COLOR, BASE_TERMINAL, BOLD, BASE_TERMINAL);
+				printf("  %s[ 4 ] Change the random number%s\n", CYAN_COLOR, BASE_TERMINAL);
+				printf("  %s[ 5 ] View statistics%s\n", YELLOW_COLOR, BASE_TERMINAL);
+				printf("  %s[ 6 ] Read \"READ-ME\"%s\n", YELLOW_COLOR, BASE_TERMINAL);
 				fputs("\t Your answer: ", stdout);
 				std::cin >> std::ws >> option1;
 
@@ -138,12 +138,6 @@ int main()
 					clear_terminal();
 				}
 
-				else if(option1 == "4")
-				{
-					clear_terminal();
-					rrmf();
-				}
-
 				else if(option1 == "3.14" || option1 == "3.1415" || option1 == "3.14159" || option1 == "3,14" || option1 == "3,1415" || option1 == "3,14159")
 				{
 					clear_terminal();
@@ -151,12 +145,22 @@ int main()
 					clear_terminal();
 				}
 
+				else if(option1 == "4")
+				{
+					clear_terminal();
+					old_random_number = random_number;
+					printf("Now your attempts have been reseted and the random number has changed to a new value! (Old random number: %d)\n", old_random_number);
+					random_number = rand() % 11, attempts = 0.0L;
+					petc();
+					clear_terminal();
+				}
+
 				else if(option1 == "5")
 				{
 					clear_terminal();
 					printf("Number of attempts: %0.Lf\n", attempts);
-					printf("Percentage of wins: %0.Lf%%\n", wins_percent);
-					printf("Percentage of loses: %0.Lf%%\n", loses_percent);
+					printf("Percentage of wins: %Lf%%\n", wins_percent);
+					printf("Percentage of loses: %Lf%%\n", loses_percent);
 					printf("Number of wins: %0.Lf\n", wins);
 					printf("Number of loses: %0.Lf\n", loses);
 					petc();
@@ -166,11 +170,7 @@ int main()
 				else if(option1 == "6")
 				{
 					clear_terminal();
-					old_random_number = random_number;
-					printf("Now your attempts have been reseted and the random number has changed to a new value! (Old random number: %d)\n", old_random_number);
-					random_number = rand() % 11, attempts = 0.0L;
-					petc();
-					clear_terminal();
+					rrmf();
 				}
 
 				else
