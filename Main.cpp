@@ -3,84 +3,100 @@
 #define _RNG_GAME_CPP_
 
 // Importations:
+#define IMPORT_TERMINAL_COLORS
 #include <cutils.h>
+#include <stdio.h>
 #include <iostream>
 #include <fstream>
-#include <filesystem>
+#include <ctime>
+#if defined(_WIN32) || defined(_WIN64)
+	#include <direct.h>
+	#define MKDIR(dir) _mkdir(dir)
+#else
+	#include <sys/stat.h>
+	#include <sys/types.h>
+	#define MKDIR(dir) mkdir(dir, 0755)
+#endif
 
 
-// Global Variables:
-long double attempts;      // Number of attempts global variable.
-long double wins_percent;  // Percentage of wins global variable.
-long double loses_percent; // Percentage of loses global variable.
-long double wins;          // Number of wins global variable.
-long double loses;         // Number of loses global variable.
-
-// Save statistics function:
-void save_data()
+// Classes and functions:
+class Game
 {
-	if(!std::filesystem::exists("data"))
+public:
+	static long double all_attempts; // Number of attempts global variable.
+	static long double wins;         // Number of wins global variable.
+	static long double loses;        // Number of loses global variable.
+
+	static void save_data()
 	{
-		std::filesystem::create_directory("data");
+		MKDIR("data");
+		FILE *statistics = std::fopen("data/statistics.csv", "w");
+		std::fprintf(statistics, "%0.Lf,%0.Lf,%0.Lf\n", Game::all_attempts, Game::wins, Game::loses);
+		std::fclose(statistics);
 	}
 
-	std::ofstream file("data/statistics.csv");
-	if(file.is_open())
+	static void load_data()
 	{
-		file << attempts << "," << wins_percent << "," << loses_percent << "," << wins << "," << loses << "\n";
-		file.close();
-	}
-}
-
-// Load data function:
-void load_data()
-{
-	if(std::filesystem::exists("data/statistics.csv"))
-	{
-		std::ifstream file("data/statistics.csv");
-		std::string line;
-
-		if(file.is_open() && std::getline(file, line))
+		FILE *statistics = std::fopen("data/statistics.csv", "r");
+		if(!statistics)
 		{
-			std::stringstream ss(line);
-			std::string value;
-
-			if(std::getline(ss, value, ',')) {attempts = std::stold(value);}
-			if(std::getline(ss, value, ',')) {wins_percent = std::stold(value);}
-			if(std::getline(ss, value, ',')) {loses_percent = std::stold(value);}
-			if(std::getline(ss, value, ',')) {wins = std::stold(value);}
-			if(std::getline(ss, value, ',')) {loses = std::stold(value);}
-
-			file.close();
+			Game::all_attempts = 0.0L, Game::wins = 0.0L, Game::loses = 0.0L;
+			save_data();
+			return;
 		}
-	}
 
-	else
-	{
-		attempts = 0.0L, wins_percent = 0.0L, loses_percent = 0.0L, wins = 0.0L, loses = 0.0L;
-		save_data();
+		char buffer[BUFSIZ];
+		if(std::fgets(buffer, BUFSIZ, statistics) != NULL)
+		{
+			long double values[3] = {0.0L, 0.0L, 0.0L};
+			int itens = std::sscanf(buffer, "%Lf,%Lf,%Lf", &values[0], &values[1], &values[2]);
+			if(itens == 3)
+			{
+				Game::all_attempts = values[0], Game::wins = values[1], Game::loses = values[2];
+			}
+
+			else
+			{
+				Game::all_attempts = 0.0L, Game::wins = 0.0L, Game::loses = 0.0L;
+				save_data();
+			}
+		}
+
+		else
+		{
+			Game::all_attempts = 0.0L, Game::wins = 0.0L, Game::loses = 0.0L;
+			save_data();
+		}
+
+		std::fclose(statistics);
 	}
-}
+};
+
+// Initialize static variables:
+long double Game::all_attempts = 0.0L;
+long double Game::wins = 0.0L;
+long double Game::loses = 0.0L;
 
 // Main code:
 int main()
 {
-	// Start random seed:
-	srand((signed int) time(NULL));
+	// Start seed:
+	std::srand(static_cast<unsigned>(std::time(NULL)));
 
 	// Variables:
-	#define RNG_GAME_VERSION "4.0.1"        // RNG Game version variable.
+	#define RNG_GAME_VERSION "2.0.0"        // RNG Game version variable.
 	#define MIN 0                           // Minimum value variable.
 	#define MAX 10                          // Maximum value variable.
 	signed char loop1 = 1;                  // First loop variable.
 	signed int number;                      // Number variable.
 	signed int old_random_number;           // Old random number variable.
 	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
+	long double round_attempts = 0.0L;      // Attempts variable.
 	std::string option1;                    // First option variable.
 
 	// Initializations before the game (load):
 	enable_vt_and_utf8();
-	load_data();
+	Game::load_data();
 
 	// Main loop:
 	while(loop1 == 1)
@@ -104,13 +120,11 @@ int main()
 				puts("==================================");
 				puts("============ Options =============");
 				puts("==================================");
-				puts("  [ 0 ] Return");
-				printf("  %s[ 1 ] Quit...%s\n", RED_COLOR, BASE_TERMINAL);
-				printf("  %s[ 2 ] Save data%s and %squit%s\n", GREEN_COLOR, BASE_TERMINAL, RED_COLOR, BASE_TERMINAL);
-				printf("  %s[ 3 ] Save data%s (%sit is saved automatically on the game play%s)\n", GREEN_COLOR, BASE_TERMINAL, BOLD, BASE_TERMINAL);
-				printf("  %s[ 4 ] Change the random number%s\n", CYAN_COLOR, BASE_TERMINAL);
-				printf("  %s[ 5 ] View statistics%s\n", YELLOW_COLOR, BASE_TERMINAL);
-				printf("  %s[ 6 ] Read \"READ-ME\"%s\n", YELLOW_COLOR, BASE_TERMINAL);
+				printf("  %s[ 0 ] Return%s\n", BOLD, BASE_TERMINAL);
+				printf("  %s[ 1 ] Save%s and %squit...%s\n", GREEN_COLOR, BASE_TERMINAL, RED_COLOR, BASE_TERMINAL);
+				printf("  %s[ 2 ] Change the random number%s\n", CYAN_COLOR, BASE_TERMINAL);
+				printf("  %s[ 3 ] View statistics%s\n", YELLOW_COLOR, BASE_TERMINAL);
+				printf("  %s[ 4 ] Read \"READ-ME\"%s\n", YELLOW_COLOR, BASE_TERMINAL);
 				fputs("\t Your answer: ", stdout);
 				std::cin >> std::ws >> option1;
 
@@ -121,19 +135,26 @@ int main()
 
 				else if(option1 == "1")
 				{
-					loop1 = 0, clear_terminal();
+					loop1 = 0, Game::save_data(), clear_terminal();
 				}
 
 				else if(option1 == "2")
 				{
-					loop1 = 0, save_data(), clear_terminal();
+					clear_terminal();
+					old_random_number = random_number;
+					printf("Now your attempts have been reseted and the random number has changed to a new value! (Old random number: %d)\n", old_random_number);
+					random_number = rand() % 11, round_attempts = 0.0L;
+					petc();
+					clear_terminal();
 				}
 
 				else if(option1 == "3")
 				{
 					clear_terminal();
-					save_data();
-					puts("Data saved successfully!");
+					printf("Number of all attempts: %0.Lf\n", Game::all_attempts);
+					printf("Number of attempts in this round: %0.Lf\n", round_attempts);
+					printf("Number of wins: %0.Lf\n", Game::wins);
+					printf("Number of loses: %0.Lf\n", Game::loses);
 					petc();
 					clear_terminal();
 				}
@@ -146,28 +167,6 @@ int main()
 				}
 
 				else if(option1 == "4")
-				{
-					clear_terminal();
-					old_random_number = random_number;
-					printf("Now your attempts have been reseted and the random number has changed to a new value! (Old random number: %d)\n", old_random_number);
-					random_number = rand() % 11, attempts = 0.0L;
-					petc();
-					clear_terminal();
-				}
-
-				else if(option1 == "5")
-				{
-					clear_terminal();
-					printf("Number of attempts: %0.Lf\n", attempts);
-					printf("Percentage of wins: %Lf%%\n", wins_percent);
-					printf("Percentage of loses: %Lf%%\n", loses_percent);
-					printf("Number of wins: %0.Lf\n", wins);
-					printf("Number of loses: %0.Lf\n", loses);
-					petc();
-					clear_terminal();
-				}
-
-				else if(option1 == "6")
 				{
 					clear_terminal();
 					rrmf();
@@ -194,18 +193,18 @@ int main()
 				if(number > random_number)
 				{
 					printf("%s%sYou lose!%s The random number is below 10!\n", BOLD, RED_COLOR, BASE_TERMINAL);
-					++attempts, ++loses;
-					save_data();
+					++Game::all_attempts, ++round_attempts, ++Game::loses;
+					Game::save_data();
 				}
 
 				else if(number == random_number)
 				{
 					printf("%s%sYou win!%s The random number is = 10!\n", BOLD, GREEN_COLOR, BASE_TERMINAL);
 					puts("Now the random number has changed to a new value!");
-					++attempts, ++wins;
-					save_data();
-					printf("Number of attempts: %0.Lf\n", attempts);
-					random_number = rand() % 11;
+					++Game::all_attempts, ++round_attempts, ++Game::wins;
+					Game::save_data();
+					printf("Number of attempts in this round: %0.Lf\n", round_attempts);
+					random_number = rand() % 11, round_attempts = 0.0L;
 				}
 			}
 
@@ -216,18 +215,18 @@ int main()
 				if(number < random_number)
 				{
 					printf("%s%sYou lose!%s The random number is above 0!\n", BOLD, RED_COLOR, BASE_TERMINAL);
-					++attempts, ++loses;
-					save_data();
+					++Game::all_attempts, ++round_attempts, ++Game::loses;
+					Game::save_data();
 				}
 
 				else if(number == random_number)
 				{
 					printf("%s%sYou win!%s The random number is = 0\n", BOLD, GREEN_COLOR, BASE_TERMINAL);
 					puts("Now the random number has changed to a new value!");
-					++attempts, ++wins;
-					save_data();
-					printf("Number of attempts: %0.Lf\n", attempts);
-					random_number = rand() % 11;
+					++Game::all_attempts, ++round_attempts, ++Game::wins;
+					Game::save_data();
+					printf("Number of attempts in this round: %0.Lf\n", round_attempts);
+					random_number = rand() % 11, round_attempts = 0.0L;
 				}
 			}
 
@@ -236,25 +235,25 @@ int main()
 				if(number < random_number)
 				{
 					printf("%s%sYou lose!%s The random number is above %d!\n", BOLD, RED_COLOR, BASE_TERMINAL, number);
-					++attempts, ++loses;
-					save_data();
+					++Game::all_attempts, ++round_attempts, ++Game::loses;
+					Game::save_data();
 				}
 
 				else if(number == random_number)
 				{
 					printf("%s%sYou win!%s The random number is = %d!\n", BOLD, GREEN_COLOR, BASE_TERMINAL, number);
 					puts("Now the random number has changed to a new value!");
-					++attempts, ++wins;
-					save_data();
-					printf("Number of attempts: %0.Lf\n", attempts);
-					random_number = rand() % 11;
+					++Game::all_attempts, ++round_attempts, ++Game::wins;
+					Game::save_data();
+					printf("Number of attempts in this round: %0.Lf\n", round_attempts);
+					random_number = rand() % 11, round_attempts = 0.0L;
 				}
 
 				else if(number > random_number)
 				{
 					printf("%s%sYou lose!%s The random number is below %d!\n", BOLD, RED_COLOR, BASE_TERMINAL, number);
-					++attempts, ++loses;
-					save_data();
+					++Game::all_attempts, ++round_attempts, ++Game::loses;
+					Game::save_data();
 				}
 			}
 
