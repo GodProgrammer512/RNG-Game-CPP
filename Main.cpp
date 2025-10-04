@@ -1,8 +1,8 @@
-// Run once time:
+/* Include guard: */
 #ifndef _RNG_GAME_CPP_
 #define _RNG_GAME_CPP_
 
-// Importations:
+/* Importations: */
 #define IMPORT_TERMINAL_COLORS
 #include <cutils.h>
 #include <stdio.h>
