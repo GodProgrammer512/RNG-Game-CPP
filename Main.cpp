@@ -19,13 +19,13 @@
 #endif
 
 
-// Classes and functions:
+/* Classes and functions: */
 class Game
 {
 public:
-	static long double all_attempts; // Number of attempts global variable.
-	static long double wins;         // Number of wins global variable.
-	static long double loses;        // Number of loses global variable.
+	static long double all_attempts; /* Number of attempts global variable. */
+	static long double wins;         /* Number of wins global variable. */
+	static long double loses;        /* Number of loses global variable. */
 
 	static void save_data()
 	{
@@ -72,34 +72,34 @@ public:
 	}
 };
 
-// Initialize static variables:
+/* Initialize static variables: */
 long double Game::all_attempts = 0.0L;
 long double Game::wins = 0.0L;
 long double Game::loses = 0.0L;
 
-// Main code:
+/* Main code: */
 int main()
 {
-	// Start seed:
+	/* Start seed: */
 	std::srand(static_cast<unsigned>(std::time(NULL)));
 
-	// Variables:
-	#define RNG_GAME_VERSION "2.0.0"        // RNG Game version variable.
-	#define MIN 0                           // Minimum value variable.
-	#define MAX 10                          // Maximum value variable.
-	signed char loop1 = 1;                  // First loop variable.
-	signed int number;                      // Number variable.
-	signed int old_random_number;           // Old random number variable.
-	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
-	long double round_attempts = 0.0L;      // Attempts variable.
-	std::string option1;                    // First option variable.
-	std::string snumber;                    // String number variable.
+	/* Variables: */
+	#define RNG_GAME_VERSION "2.0.0"        /* RNG Game version variable. */
+	#define MIN 0                           /* Minimum value variable. */
+	#define MAX 10                          /* Maximum value variable. */
+	signed char loop1 = 1;                  /* First loop variable. */
+	signed int number;                      /* Number variable. */
+	signed int old_random_number;           /* Old random number variable. */
+	signed int random_number = rand() % 11; /* Random number between 0 and 10 variable. */
+	long double round_attempts = 0.0L;      /* Attempts variable. */
+	std::string option1;                    /* First option variable. */
+	std::string snumber;                    /* String number variable. */
 
-	// Initializations before the game (load):
+	/* Initializations before the game (load): */
 	enable_vt_and_utf8();
 	Game::load_data();
 
-	// Main loop:
+	/* Main loop: */
 	while(loop1 == 1)
 	{
 		clear_terminal();
@@ -266,5 +266,5 @@ int main()
 	return 0;
 }
 
-// End code:
+/* End code: */
 #endif
