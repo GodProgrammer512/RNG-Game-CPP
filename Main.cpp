@@ -31,7 +31,7 @@ public:
 	{
 		MKDIR("data");
 		FILE *statistics = std::fopen("data/statistics.csv", "w");
-		std::fprintf(statistics, "%0.Lf,%0.Lf,%0.Lf\n", Game::all_attempts, Game::wins, Game::loses);
+		std::fprintf(statistics, "%Lf,%Lf,%Lf\n", Game::all_attempts, Game::wins, Game::loses);
 		std::fclose(statistics);
 	}
 
@@ -93,6 +93,7 @@ int main()
 	signed int random_number = rand() % 11; // Random number between 0 and 10 variable.
 	long double round_attempts = 0.0L;      // Attempts variable.
 	std::string option1;                    // First option variable.
+	std::string snumber;                    // String number variable.
 
 	// Initializations before the game (load):
 	enable_vt_and_utf8();
@@ -169,7 +170,7 @@ int main()
 				else if(option1 == "4")
 				{
 					clear_terminal();
-					rrmf();
+					read_me();
 				}
 
 				else
@@ -182,7 +183,8 @@ int main()
 		else if(option1 == "1")
 		{
 			printf("Type the number that you think it is (%sMin: 0%s, %sMax: 10%s, if you type another number below 0 it will be rounded to 0, and the same will hapend to the number above 10...): ", BOLD, BASE_TERMINAL, BOLD, BASE_TERMINAL);
-			scanf("%d", &number);
+			std::cin >> std::ws >> snumber;
+			number = atoi(snumber.c_str());
 			clear_terminal();
 			fputs("Soo... ", stdout);
 
