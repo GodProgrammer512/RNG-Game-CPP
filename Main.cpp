@@ -83,10 +83,15 @@ int main()
 	/* Start seed: */
 	std::srand(static_cast<unsigned>(std::time(NULL)));
 
-	/* Variables: */
-	#define RNG_GAME_VERSION "2.0.0"        /* RNG Game version variable. */
-	#define MIN 0                           /* Minimum value variable. */
-	#define MAX 10                          /* Maximum value variable. */
+	/* RNG Game version variables: */
+	#define RNG_GAME_FULL_VERSION  201L     /* RNG Game full version variable (2.0.1). */
+	#define RNG_GAME_MAJOR_VERSION 2L       /* RNG Game major version variable (2). */
+	#define RNG_GAME_MINOR_VERSION 0L       /* RNG Game minor version variable (0). */
+	#define RNG_GAME_PATCH_VERSION 1L       /* RNG Game patch version variable (1). */
+
+	/* Main variables: */
+	#define MIN                    0        /* Minimum value variable. */
+	#define MAX                    10       /* Maximum value variable. */
 	signed char loop1 = 1;                  /* First loop variable. */
 	signed int number;                      /* Number variable. */
 	signed int old_random_number;           /* Old random number variable. */
@@ -102,15 +107,15 @@ int main()
 	/* Main loop: */
 	while(loop1 == 1)
 	{
-		clear_terminal();
+		CLEAR_TERMINAL();
 		puts("========================================");
-		printf("============ RNG Game %s ============\n", RNG_GAME_VERSION);
+		printf("============ RNG Game %.0Lf.%.0Lf.%.0Lf ============\n", RNG_GAME_MAJOR_VERSION, RNG_GAME_MINOR_VERSION, RNG_GAME_PATCH_VERSION);
 		puts("========================================");
 		puts("         [ 0 ] Options...");
 		puts("         [ 1 ] Play game!");
 		fputs("\t   Your answer: ", stdout);
 		std::cin >> std::ws >> option1;
-		clear_terminal();
+		CLEAR_TERMINAL();
 
 		if(option1 == "0")
 		{
@@ -136,46 +141,46 @@ int main()
 
 				else if(option1 == "1")
 				{
-					loop1 = 0, Game::save_data(), clear_terminal();
+					loop1 = 0, Game::save_data(), CLEAR_TERMINAL();
 				}
 
 				else if(option1 == "2")
 				{
-					clear_terminal();
+					CLEAR_TERMINAL();
 					old_random_number = random_number;
 					printf("Now your attempts have been reseted and the random number has changed to a new value! (Old random number: %d)\n", old_random_number);
 					random_number = rand() % 11, round_attempts = 0.0L;
 					petc();
-					clear_terminal();
+					CLEAR_TERMINAL();
 				}
 
 				else if(option1 == "3")
 				{
-					clear_terminal();
+					CLEAR_TERMINAL();
 					printf("Number of all attempts: %0.Lf\n", Game::all_attempts);
 					printf("Number of attempts in this round: %0.Lf\n", round_attempts);
 					printf("Number of wins: %0.Lf\n", Game::wins);
 					printf("Number of loses: %0.Lf\n", Game::loses);
 					petc();
-					clear_terminal();
+					CLEAR_TERMINAL();
 				}
 
 				else if(option1 == "3.14" || option1 == "3.1415" || option1 == "3.14159" || option1 == "3,14" || option1 == "3,1415" || option1 == "3,14159")
 				{
-					clear_terminal();
+					CLEAR_TERMINAL();
 					easter_egg_function();
-					clear_terminal();
+					CLEAR_TERMINAL();
 				}
 
 				else if(option1 == "4")
 				{
-					clear_terminal();
+					CLEAR_TERMINAL();
 					read_me();
 				}
 
 				else
 				{
-					clear_terminal();
+					CLEAR_TERMINAL();
 				}
 			}
 		}
@@ -185,7 +190,7 @@ int main()
 			printf("Type the number that you think it is (%sMin: 0%s, %sMax: 10%s, if you type another number below 0 it will be rounded to 0, and the same will hapend to the number above 10...): ", BOLD, BASE_TERMINAL, BOLD, BASE_TERMINAL);
 			std::cin >> std::ws >> snumber;
 			number = atoi(snumber.c_str());
-			clear_terminal();
+			CLEAR_TERMINAL();
 			fputs("Soo... ", stdout);
 
 			if(number > MAX)
