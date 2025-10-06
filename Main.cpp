@@ -5,8 +5,8 @@
 /* Importations: */
 #define IMPORT_TERMINAL_COLORS
 #include <cutils.h>
-#include <stdio.h>
 #include <iostream>
+#include <stdlib.h>
 #include <fstream>
 #include <ctime>
 #if defined(_WIN32) || defined(_WIN64)
@@ -84,10 +84,10 @@ int main()
 	std::srand(static_cast<unsigned>(std::time(NULL)));
 
 	/* RNG Game version variables: */
-	#define RNG_GAME_FULL_VERSION  201L     /* RNG Game full version variable (2.0.1). */
-	#define RNG_GAME_MAJOR_VERSION 2L       /* RNG Game major version variable (2). */
-	#define RNG_GAME_MINOR_VERSION 0L       /* RNG Game minor version variable (0). */
-	#define RNG_GAME_PATCH_VERSION 1L       /* RNG Game patch version variable (1). */
+	#define RNG_GAME_FULL_VERSION  201.0L   /* RNG Game full version variable (2.0.1). */
+	#define RNG_GAME_MAJOR_VERSION 2.0L     /* RNG Game major version variable (2). */
+	#define RNG_GAME_MINOR_VERSION 0.0L     /* RNG Game minor version variable (0). */
+	#define RNG_GAME_PATCH_VERSION 1.0L     /* RNG Game patch version variable (1). */
 
 	/* Main variables: */
 	#define MIN                    0        /* Minimum value variable. */
