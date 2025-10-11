@@ -25,8 +25,8 @@ class Game
 public:
 	/* Static variables: */
 	static long double all_attempts; /* Number of attempts global variable. */
-	static long double wins;         /* Number of wins global variable. */
-	static long double loses;        /* Number of loses global variable. */
+	static long double wins;         /* Number of wins global variable.     */
+	static long double loses;        /* Number of loses global variable.    */
 
 	/* Save data function: */
 	static void save_data()
