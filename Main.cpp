@@ -87,21 +87,21 @@ int main()
 	std::srand(static_cast<unsigned>(std::time(NULL)));
 
 	/* RNG Game version variables: */
-	#define RNG_GAME_FULL_VERSION  201.0L   /* RNG Game full version variable (2.0.1). */
-	#define RNG_GAME_MAJOR_VERSION 2.0L     /* RNG Game major version variable (2). */
-	#define RNG_GAME_MINOR_VERSION 0.0L     /* RNG Game minor version variable (0). */
-	#define RNG_GAME_PATCH_VERSION 1.0L     /* RNG Game patch version variable (1). */
+	#define RNG_GAME_FULL_VERSION  201.0L   /* RNG Game full version variable (2.0.1).  */
+	#define RNG_GAME_MAJOR_VERSION 2.0L     /* RNG Game major version variable (2).     */
+	#define RNG_GAME_MINOR_VERSION 0.0L     /* RNG Game minor version variable (0).     */
+	#define RNG_GAME_PATCH_VERSION 1.0L     /* RNG Game patch version variable (1).     */
 
 	/* Main variables: */
-	#define MIN                    0        /* Minimum value variable. */
-	#define MAX                    10       /* Maximum value variable. */
-	signed char loop1 = 1;                  /* First loop variable. */
-	signed int number;                      /* Number variable. */
-	signed int old_random_number;           /* Old random number variable. */
+	#define MIN                    0        /* Minimum value variable.                  */
+	#define MAX                    10       /* Maximum value variable.                  */
+	signed char loop1 = 1;                  /* First loop variable.                     */
+	signed int number;                      /* Number variable.                         */
+	signed int old_random_number;           /* Old random number variable.              */
 	signed int random_number = rand() % 11; /* Random number between 0 and 10 variable. */
-	long double round_attempts = 0.0L;      /* Attempts variable. */
-	std::string option1;                    /* First option variable. */
-	std::string snumber;                    /* String number variable. */
+	long double round_attempts = 0.0L;      /* Attempts variable.                       */
+	std::string option1;                    /* First option variable.                   */
+	std::string snumber;                    /* String number variable.                  */
 
 	/* Initializations before the game (load): */
 	enable_vt_and_utf8();
